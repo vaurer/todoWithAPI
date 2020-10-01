@@ -1,0 +1,19 @@
+body{
+    background-color: cornflowerblue;
+}
+#control{
+    margin-top: 20px;
+}
+ul{
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+}
+li{
+    padding: 10px;
+    margin-top: 2px;
+}
+.wrapper{
+    display: flex;
+    justify-content: center;
+}

@@ -8,6 +8,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js" defer></script>
 <link rel="stylesheet" href="/style.css">
 <script src="/script.js" defer></script>
 </head>
@@ -17,16 +18,14 @@
             <div class="form-group">
               <label for="task">Task</label>
               <input type="txt" class="form-control" id="newTaskInput" aria-describedby="emailHelp">
-              <small id="emailHelp" class="form-text text-muted">Enter the new task</small>
+              <small id="taskHelp" class="form-text text-muted">Enter the new task</small>
             </div>
             <div class="form-group">
               <label for="responsible">Responsible</label>
               <input type="txt" class="form-control" id="responsible">
+              <small id="responsibleHelp" class="form-text text-muted">Enter who's for this task</small>
             </div>
-            <div class="form-group form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
+
             <button type="submit" id ="addTask" class="btn btn-primary">Submit</button>
           </form>
       
@@ -45,5 +44,25 @@
       </div>
     </div>
   </div>
+  <div id="taskOutHandelbars"></div>
 </body>
 </html>
+
+<script class="listOfTasks" id="todoList" type="text/x-handlebars-template">
+  <div class="container">
+    {{#each this}}
+    <div class="row row-cols-3">
+      <div class="col">
+       <p>{{name}}</p> 
+      </div>
+      <div class="col">
+        <p> {{responsible}}</p> 
+      </div>
+      <div class="col">
+        <!-- <button onClick="removeTask('{{id}}')">Remove Task</button> -->
+        <button type="button" class="btn btn-primary btn-lg" onClick="removeTask('{{id}}')">Remove Task</button>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</script>

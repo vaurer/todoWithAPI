@@ -1,33 +1,24 @@
 loadAllTodos();
+
 document.getElementById("addTask").addEventListener("click", function () {
   addNewTask();
   loadAllTodos();
 });
 
+
 function loadAllTodos() {
+  var source = document.getElementById("todoList").innerHTML;
+  var template = Handlebars.compile(source);
+
   fetch("http://localhost:8080/todos")
     .then((response) => response.json())
     .then(function (data) {
-      console.log(data);
-      html = "";
-      data.forEach((element) => {
-        html +=
-          "<li><input onclick='changeIsDone("+element.id+")' name='checkbox' data-indexOf='" +
-          element.taskDone +
-          "' type='checkbox'" +
-          checked +
-          "/> " +
-          "  " +
-          element.name +
-          "  " +
-          element.responsible +
-          " " +
-          "<button onClick='removeTask(" +
-          element.id +
-          ")'>Remove Task</button></li>";
-    
-      });
-      document.getElementById("todos").innerHTML = html;
+      console.log(data, "OK");
+  
+      let htmlAllTodos = template(data);
+      console.log(template(data))
+
+      document.getElementById("taskOutHandelbars").innerHTML = htmlAllTodos;
     });
 }
 
@@ -37,7 +28,6 @@ function addNewTask(name, responsible) {
   newTask.responsible = document.getElementById("responsible").value;
   newTask.taskDone = false;
   var jsonString = JSON.stringify(newTask);
-  //let newTask ='{"name": "'+taskName+'","responsible:"Vedran"}'
 
   console.log(newTask);
 
@@ -55,6 +45,7 @@ function addNewTask(name, responsible) {
     .catch(function (res) {
       console.log(res);
     });
+    alert("Task added")
   loadAllTodos();
 }
 
@@ -68,7 +59,7 @@ function removeTask(id) {
      
     },
     method: "DELETE",
-   
+    
   })
     .then(function (res) {
       console.log(res);
@@ -76,6 +67,7 @@ function removeTask(id) {
     .catch(function (res) {
       console.log(res);
     });
+    alert("Task has been removed")
     loadAllTodos();
 }
 

@@ -1,5 +1,5 @@
 loadAllTodos();
-
+$('.toast').toast('delay')
 document.getElementById("addTask").addEventListener("click", function () {
   addNewTask();
   loadAllTodos();
@@ -22,7 +22,7 @@ function loadAllTodos() {
     });
 }
 
-function addNewTask(name, responsible) {
+function addNewTask() {
   var newTask = new Object();
   newTask.name = document.getElementById("newTaskInput").value;
   newTask.responsible = document.getElementById("responsible").value;
@@ -40,13 +40,11 @@ function addNewTask(name, responsible) {
     body: jsonString,
   })
     .then(function (res) {
-      console.log(res);
+      loadAllTodos();
     })
     .catch(function (res) {
       console.log(res);
     });
-    alert("Task added")
-  loadAllTodos();
 }
 
 function removeTask(id) {
@@ -63,12 +61,12 @@ function removeTask(id) {
   })
     .then(function (res) {
       console.log(res);
+      loadAllTodos();
     })
     .catch(function (res) {
       console.log(res);
     });
-    alert("Task has been removed")
-    loadAllTodos();
+
 }
 
 function changeIsDone(id){
@@ -85,10 +83,12 @@ function changeIsDone(id){
    
   })
     .then(function (res) {
+      loadAllTodos();
       console.log(res);
     })
     .catch(function (res) {
       console.log(res);
     });
-    loadAllTodos();
+    $('.toast').toast('show');
 }
+

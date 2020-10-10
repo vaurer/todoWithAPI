@@ -1,8 +1,8 @@
 loadAllTodos();
-$('.toast').toast('delay')
+
 document.getElementById("addTask").addEventListener("click", function () {
   addNewTask();
-  loadAllTodos();
+
 });
 
 
@@ -16,7 +16,7 @@ function loadAllTodos() {
       console.log(data, "OK");
   
       let htmlAllTodos = template(data);
-      console.log(template(data))
+     // console.log(template(data))
 
       document.getElementById("taskOutHandelbars").innerHTML = htmlAllTodos;
     });
@@ -35,16 +35,18 @@ function addNewTask() {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "http://localhost:8080/"
     },
     method: "POST",
     body: jsonString,
   })
-    .then(function (res) {
-      loadAllTodos();
-    })
-    .catch(function (res) {
-      console.log(res);
-    });
+  .then(response => loadAllTodos())
+  .then(document.getElementById("newTaskInput").value="")
+  .then(document.getElementById("responsible").value="")
+  .catch(error => alert('Error! ' + error.message))
+    // .catch(function (res) {
+    //   console.log(res);
+    // });
 }
 
 function removeTask(id) {
@@ -54,7 +56,6 @@ function removeTask(id) {
   fetch(url, {
     headers: {
       Accept: "application/json",
-     
     },
     method: "DELETE",
     
@@ -89,6 +90,6 @@ function changeIsDone(id){
     .catch(function (res) {
       console.log(res);
     });
-    $('.toast').toast('show');
+    $("#myToast").toast('show');
 }
 
